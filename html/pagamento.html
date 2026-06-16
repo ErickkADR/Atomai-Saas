@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Pagamento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-0: #04060d;
+      --bg-1: #080c16;
+      --bg-2: #0c1120;
+      --bg-3: #111828;
+      --accent:        #2d8eff;
+      --accent-bright: #00cfff;
+      --accent-dim:    rgba(45,142,255,.10);
+      --text-1: #e8eeff;
+      --text-2: #6b7c9e;
+      --text-3: #384560;
+      --green:  #00e87a;
+      --red:    #ff4d6d;
+      --border:       rgba(45,142,255,.09);
+      --border-hover: rgba(45,142,255,.28);
+      --r: 14px;
+      --r-sm: 9px;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--text-1);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      transition: opacity .35s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(45,142,255,.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Back link ── */
+    .back-link {
+      position: absolute;
+      top: 28px; left: 36px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .85rem;
+      color: var(--text-2);
+      transition: color .2s;
+    }
+
+    .back-link:hover { color: var(--text-1); }
+
+    /* ── Layout ── */
+    .checkout-wrap {
+      display: flex;
+      gap: 28px;
+      width: 100%;
+      max-width: 860px;
+      align-items: flex-start;
+    }
+
+    /* ── Order summary ── */
+    .order-summary {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px 24px;
+    }
+
+    .order-summary h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      margin-bottom: 20px;
+    }
+
+    .plan-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--bg-3);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--r-sm);
+      margin-bottom: 18px;
+    }
+
+    .plan-tag .pname {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-bright);
+    }
+
+    .plan-tag .pprice {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .plan-tag .pprice small {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem;
+      font-weight: 400;
+      color: var(--text-2);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: .86rem;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-2);
+    }
+
+    .summary-line:last-of-type { border-bottom: none; }
+    .summary-line span:last-child { color: var(--text-1); }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-hover);
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .75rem;
+      color: var(--text-2);
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Form card ── */
+    .checkout-form-card {
+      flex: 1;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 36px;
+    }
+
+    .form-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    /* Visual credit card */
+    .card-visual {
+      background: linear-gradient(135deg, #0d1a3a 0%, #1a3060 50%, #0d2040 100%);
+      border: 1px solid rgba(45,142,255,.3);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      min-height: 140px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    }
+
+    .card-visual::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(45,142,255,.15) 0%, transparent 68%);
+    }
+
+    .card-visual .card-logo {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.6);
+      margin-bottom: 24px;
+    }
+
+    .card-visual .card-number-display {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--text-1);
+      margin-bottom: 18px;
+    }
+
+    .card-visual .card-meta {
+      display: flex;
+      gap: 32px;
+    }
+
+    .card-visual .card-meta .label {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 3px;
+    }
+
+    .card-visual .card-meta .value {
+      font-family: 'DM Mono', monospace;
+      font-size: .9rem;
+      color: var(--text-1);
+    }
+
+    /* chip icon */
+    .card-chip {
+      position: absolute;
+      top: 22px; right: 24px;
+      width: 38px; height: 28px;
+      background: linear-gradient(135deg, #d4a843, #e8c76a);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-chip::after {
+      content: '';
+      width: 22px; height: 16px;
+      border: 1.5px solid rgba(0,0,0,.3);
+      border-radius: 3px;
+    }
+
+    /* ── Form fields ── */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .field-group label {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .field-group input {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--text-1);
+      padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+    }
+
+    .field-group input.mono {
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 1.5px;
+    }
+
+    .field-group input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(45,142,255,.10);
+    }
+
+    .field-group input::placeholder { color: var(--text-3); }
+
+    /* ── Pay button ── */
+    .pay-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      border: none;
+      border-radius: var(--r-sm);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: filter .2s, transform .2s, box-shadow .2s;
+      letter-spacing: .2px;
+    }
+
+    .pay-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba(45,142,255,.40);
+    }
+
+    .pay-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── SUCCESS OVERLAY ── */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4,6,13,.92);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .success-overlay.visible {
+      display: flex;
+      animation: fadeIn .4s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .success-icon {
+      width: 72px; height: 72px;
+      background: rgba(0,232,122,.12);
+      border: 2px solid rgba(0,232,122,.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      animation: popIn .5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+
+    .success-overlay h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .success-overlay p {
+      color: var(--text-2);
+      font-size: .92rem;
+      max-width: 360px;
+    }
+
+    .success-back-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: var(--r-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background .2s, transform .2s;
+    }
+
+    .success-back-btn:hover {
+      background: #1a78ff;
+      transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .checkout-wrap { flex-direction: column; }
+      .order-summary { width: 100%; }
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="back-link" href="/html/planos.html">← Voltar aos planos</a>
+
+  <!-- SUCCESS OVERLAY -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-icon">✓</div>
+    <h2>Pagamento confirmado!</h2>
+    <p id="success-msg">Seu plano foi ativado com sucesso. Bem-vindo ao AtomAI Pro!</p>
+    <button class="success-back-btn" onclick="window.location.href='/html/atomai-chat.html'">
+      Ir para o Chat →
+    </button>
+  </div>
+
+  <div class="checkout-wrap">
+
+    <!-- ORDER SUMMARY -->
+    <div class="order-summary">
+      <h3>Resumo do Pedido</h3>
+      <div class="plan-tag">
+        <span class="pname" id="sum-plan">Pro</span>
+        <span class="pprice"><span id="sum-price">50</span><small> USD</small></span>
+      </div>
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="sum-subtotal">$50,00</span>
+      </div>
+      <div class="summary-line">
+        <span>Desconto</span>
+        <span>$0,00</span>
+      </div>
+      <div class="summary-line">
+        <span>Impostos</span>
+        <span>—</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="sum-total">$50,00 / mês</span>
+      </div>
+      <div class="secure-badge">
+        🔒 Pagamento 100% seguro e criptografado
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="checkout-form-card">
+      <p class="form-title">Dados de Pagamento</p>
+
+      <!-- Visual card preview -->
+      <div class="card-visual">
+        <div class="card-logo">AtomAI Pay</div>
+        <div class="card-chip"></div>
+        <div class="card-number-display" id="card-display">•••• •••• •••• ••••</div>
+        <div class="card-meta">
+          <div>
+            <div class="label">Titular</div>
+            <div class="value" id="card-name-display">SEU NOME</div>
+          </div>
+          <div>
+            <div class="label">Validade</div>
+            <div class="value" id="card-exp-display">MM/AA</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form fields -->
+      <div class="field-group">
+        <label>Nome completo</label>
+        <input type="text" id="f-name" placeholder="Como no cartão" autocomplete="name">
+      </div>
+
+      <div class="field-group">
+        <label>Email</label>
+        <input type="email" id="f-email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+
+      <div class="field-group">
+        <label>Número do cartão</label>
+        <input type="text" id="f-card" class="mono" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Validade</label>
+          <input type="text" id="f-exp" class="mono" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp">
+        </div>
+        <div class="field-group">
+          <label>CVV</label>
+          <input type="text" id="f-cvv" class="mono" placeholder="•••" maxlength="4" autocomplete="cc-csc">
+        </div>
+      </div>
+
+      <button class="pay-btn" id="pay-btn" onclick="pagar()">
+        Confirmar Pagamento
+      </button>
+    </div>
+
+  </div>
+
+<script>
+/* ── Lê parâmetros da URL ── */
+const params = new URLSearchParams(window.location.search);
+const plano  = (params.get('plano') || 'pro').toUpperCase();
+const preco  = params.get('preco') || '50';
+
+document.getElementById('sum-plan').textContent    = plano;
+document.getElementById('sum-price').textContent   = preco;
+document.getElementById('sum-subtotal').textContent = `$${preco},00`;
+document.getElementById('sum-total').textContent    = `$${preco},00 / mês`;
+
+/* ── Live card preview ── */
+document.getElementById('f-card').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g, '').substring(0, 16);
+  v = v.replace(/(.{4})/g, '$1 ').trim();
+  e.target.value = v;
+  const display = v.padEnd(19, '•').replace(/ /g,'').replace(/(.{4})/g,'$1 ').trim();
+  document.getElementById('card-display').textContent = display || '•••• •••• •••• ••••';
+});
+
+document.getElementById('f-name').addEventListener('input', e => {
+  document.getElementById('card-name-display').textContent =
+    e.target.value.toUpperCase() || 'SEU NOME';
+});
+
+document.getElementById('f-exp').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 3) v = v.substring(0,2) + '/' + v.substring(2);
+  e.target.value = v;
+  document.getElementById('card-exp-display').textContent = v || 'MM/AA';
+});
+
+document.getElementById('f-cvv').addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/\D/g,'').substring(0,4);
+});
+
+/* ── Pagar (visual) ── */
+function pagar() {
+  const nome  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const card  = document.getElementById('f-card').value.replace(/\s/g,'');
+  const exp   = document.getElementById('f-exp').value.trim();
+  const cvv   = document.getElementById('f-cvv').value.trim();
+
+  if (!nome || !email || card.length < 16 || exp.length < 5 || cvv.length < 3) {
+    alert('Por favor, preencha todos os campos corretamente.');
+    return;
+  }
+
+  const btn = document.getElementById('pay-btn');
+  btn.textContent = 'Processando…';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    document.getElementById('success-msg').textContent =
+      `Seu plano ${plano} foi ativado com sucesso. Aproveite todos os recursos!`;
+    document.getElementById('success-overlay').classList.add('visible');
+  }, 1800);
+}
+</script>
+
+</body>
+</html>

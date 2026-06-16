@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Detalhe do Agente</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/auth.js"></script>
+  <style>
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      color: var(--text-2);
+      padding: 8px 16px;
+      font-size: .85rem;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      margin-bottom: 28px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .back-btn:hover {
+      background: var(--accent-dim);
+      color: var(--text-1);
+      transform: translateX(-3px);
+      box-shadow: none;
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .agent-avatar {
+      width: 68px; height: 68px;
+      background: var(--accent-dim);
+      border: 2px solid var(--border-hover);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-bright);
+      flex-shrink: 0;
+    }
+
+    .agent-info h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .agent-info p {
+      font-size: .88rem;
+      color: var(--text-2);
+      margin-top: 3px;
+    }
+
+    .agent-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .meta-badge {
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+    }
+
+    .meta-badge.green { background: rgba(0,232,122,.1); border-color: rgba(0,232,122,.2); color: var(--green); }
+    .meta-badge.blue  { background: var(--accent-dim);  border-color: var(--border-hover); color: var(--accent-bright); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-mini {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px 22px;
+    }
+
+    .stat-mini h4 {
+      font-size: .73rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      margin-bottom: 8px;
+    }
+
+    .stat-mini .val {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-1);
+      line-height: 1;
+    }
+
+    .stat-mini .sub {
+      font-size: .8rem;
+      margin-top: 4px;
+    }
+
+    .recent-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--text-1);
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="logo-area">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="Logo" class="logo">
+      <a href="/html/atomai-chat.html"><h2>AtomAI</h2></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/html/dashboard.html">📊 Dashboard</a></li>
+        <li class="active"><a href="/html/agentes.html">🤖 Agentes</a></li>
+        <li><a href="/html/tickets.html">🎫 Tickets</a></li>
+        <li><a href="/html/conf.html">⚙️ Configurações</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content fade-in">
+
+    <a class="back-btn" href="/html/agentes.html">← Voltar para Agentes</a>
+
+    <!-- Agent header preenchido via JS -->
+    <div class="agent-header" id="agent-header">
+      <div class="agent-avatar" id="agent-avatar">—</div>
+      <div class="agent-info">
+        <h2 id="agent-name">—</h2>
+        <p id="agent-specialty">—</p>
+        <div class="agent-meta">
+          <span class="meta-badge green" id="agent-status">—</span>
+          <span class="meta-badge blue" id="agent-id">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-mini">
+        <h4>Resolvidos</h4>
+        <div class="val" id="stat-resolved">—</div>
+        <div class="sub positive">Total acumulado</div>
+      </div>
+      <div class="stat-mini">
+        <h4>Em Andamento</h4>
+        <div class="val" id="stat-active">—</div>
+        <div class="sub neutral">Tickets abertos</div>
+      </div>
+      <div class="stat-mini">
+        <h4>Taxa de Resolução</h4>
+        <div class="val" id="stat-rate">—</div>
+        <div class="sub positive">Esta semana</div>
+      </div>
+      <div class="stat-mini">
+        <h4>Tempo Médio</h4>
+        <div class="val" id="stat-time">—</div>
+        <div class="sub neutral">Por ticket</div>
+      </div>
+    </div>
+
+    <!-- Recent tickets -->
+    <p class="recent-title">Tickets Recentes</p>
+    <div class="table-wrapper">
+      <table id="recent-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Assunto</th>
+            <th>Status</th>
+            <th>Criado</th>
+          </tr>
+        </thead>
+        <tbody id="recent-tbody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+<script>
+/* ── Dados dos agentes ── */
+const AGENTS = {
+  B1: {
+    name: 'Bot 1',
+    specialty: 'Especialidade: Hardware',
+    status: 'Online',
+    id: 'ID: B1-001',
+    avatar: 'B1',
+    resolved: 82,
+    active: 7,
+    rate: '94%',
+    time: '8m',
+    tickets: [
+      { id: '111-111-111', cliente: 'João',   assunto: 'Placa-mãe não reconhece RAM',  status: 'online',  criado: '2 h atrás' },
+      { id: '222-222-222', cliente: 'Filinto', assunto: 'HD não aparece no BIOS',       status: 'online',  criado: '3 min atrás' },
+      { id: '555-555-555', cliente: 'Ana',     assunto: 'Fonte queimada',              status: 'away',    criado: '1 h atrás' },
+      { id: '666-666-666', cliente: 'Pedro',   assunto: 'CPU superaquecendo',          status: 'online',  criado: '40 min atrás' },
+    ]
+  },
+  B2: {
+    name: 'Bot 2',
+    specialty: 'Especialidade: Software',
+    status: 'Online',
+    id: 'ID: B2-002',
+    avatar: 'B2',
+    resolved: 76,
+    active: 5,
+    rate: '91%',
+    time: '11m',
+    tickets: [
+      { id: '444-444-444', cliente: 'Vitor',   assunto: 'Erro ao instalar drivers',    status: 'online',  criado: '5 min atrás' },
+      { id: '777-777-777', cliente: 'Mariana',  assunto: 'Windows não inicializa',     status: 'away',    criado: '30 min atrás' },
+      { id: '888-888-888', cliente: 'Lucas',    assunto: 'Antivírus bloqueando app',   status: 'online',  criado: '1 h atrás' },
+    ]
+  },
+  B3: {
+    name: 'Bot 3',
+    specialty: 'Especialidade: Gerais',
+    status: 'Ausente',
+    id: 'ID: B3-003',
+    avatar: 'B3',
+    resolved: 45,
+    active: 2,
+    rate: '78%',
+    time: '14m',
+    tickets: [
+      { id: '333-333-333', cliente: 'Carlos',  assunto: 'Dúvida sobre garantia',      status: 'away',    criado: '7 min atrás' },
+      { id: '999-999-999', cliente: 'Beatriz', assunto: 'Solicitação de troca',       status: 'online',  criado: '2 h atrás' },
+    ]
+  }
+};
+
+/* ── Lê parâmetro ?id=B1 ── */
+const params = new URLSearchParams(window.location.search);
+const id     = params.get('id') || 'B1';
+const agent  = AGENTS[id] || AGENTS['B1'];
+
+/* ── Preenche header ── */
+document.getElementById('agent-avatar').textContent    = agent.avatar;
+document.getElementById('agent-name').textContent      = agent.name;
+document.getElementById('agent-specialty').textContent = agent.specialty;
+document.getElementById('agent-status').textContent    = agent.status;
+document.getElementById('agent-id').textContent        = agent.id;
+
+/* status badge color */
+if (agent.status === 'Online') {
+  document.getElementById('agent-status').classList.add('green');
+} else {
+  document.getElementById('agent-status').style.cssText =
+    'background:rgba(255,170,0,.1);border-color:rgba(255,170,0,.2);color:var(--orange)';
+}
+
+/* ── Preenche stats com contador animado ── */
+function animCount(el, target, suffix = '') {
+  let v = 0;
+  const step = target / 40;
+  const t = setInterval(() => {
+    v += step;
+    if (v >= target) { v = target; clearInterval(t); }
+    el.textContent = Math.floor(v) + suffix;
+  }, 16);
+}
+
+animCount(document.getElementById('stat-resolved'), agent.resolved);
+animCount(document.getElementById('stat-active'),   agent.active);
+document.getElementById('stat-rate').textContent = agent.rate;
+document.getElementById('stat-time').textContent = agent.time;
+
+/* ── Preenche tabela de tickets ── */
+const tbody = document.getElementById('recent-tbody');
+agent.tickets.forEach(t => {
+  tbody.innerHTML += `
+    <tr>
+      <td class="link">${t.id}</td>
+      <td>${t.cliente}</td>
+      <td>${t.assunto}</td>
+      <td><span class="status ${t.status}">${t.status === 'online' ? 'Resolvido' : 'Em aberto'}</span></td>
+      <td>${t.criado}</td>
+    </tr>`;
+});
+</script>
+
+</body>
+</html>

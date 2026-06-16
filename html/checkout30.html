@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>Atôm AI - Checkout 30</title>
+  <link rel="stylesheet" href="/css/pagamento30.css">
+</head>
+<body>
+  <div class="left fadeIn">
+    <div class="logo">Atôm AI</div>
+    <h2>Assinar Atôm AI Plus</h2>
+    <div class="price">US$ 30,00 <span style="font-size:16px;">por mês</span></div>
+    <div class="summary">
+      <div><span>Atôm AI Plus</span><span>US$ 30,00</span></div>
+      <div><span>Subtotal</span><span>US$ 30,00</span></div>
+      <div><span>Imposto</span><span>US$ 0,00</span></div>
+      <div><span>Total devido hoje</span><span>US$ 30,00</span></div>
+    </div>
+  </div>
+
+  <div class="right fadeIn">
+    <form id="checkoutForm">
+      <label>Dados para contato</label>
+      <input type="email" placeholder="E-mail" required>
+
+      <label>Forma de pagamento</label>
+      <div class="card-group">
+        <input type="text" placeholder="1234 1234 1234 1234" maxlength="19" required>
+        <div class="card-icons">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Visa">
+          <img src="https://cdn-icons-png.flaticon.com/512/349/349221.png" alt="Mastercard">
+          <img src="https://cdn-icons-png.flaticon.com/512/349/349230.png" alt="Amex">
+        </div>
+      </div>
+
+      <div class="card-group">
+        <input type="text" placeholder="MM / AA" maxlength="5" style="flex:1;">
+        <input type="text" placeholder="CVC" maxlength="4" style="flex:1;">
+      </div>
+
+      <input type="text" placeholder="Nome do titular do cartão" required>
+
+      <select>
+        <option>Brasil</option>
+        <option>Portugal</option>
+        <option>Estados Unidos</option>
+      </select>
+
+      <input type="text" placeholder="Informe um endereço" required>
+
+      <div class="checkbox">
+        <input type="checkbox" id="saveData">
+        <label for="saveData">Salvar meus dados com segurança para fazer checkout com 1 clique.</label>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">Você receberá uma cobrança mensal. Ao assinar, você concorda com os <a href="/html/termos.html">Termos de Uso</a> e a <a href="/html/privacidade.html">Política de Privacidade</a>.</label>
+      </div>
+      <a href="/html/atomai-chat.html">
+        <button type="submit">Enviar</button>
+      </a>
+      <footer>
+        Powered by <strong>Stripe</strong> <br>
+        <a href="/html/termos.html">Termos</a> · <a href="/html/privacidade.html">Privacidade</a>
+      </footer>
+    </form>
+  </div>
+
+<script>
+  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault(); 
+
+    alert("Pagamento enviado com sucesso!");
+
+    window.location.href = "/html/atomai-chat.html";
+  });
+</script>
+
+</body>
+</html>

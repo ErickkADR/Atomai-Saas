@@ -1,0 +1,282 @@
+/* ====================================================
+   ATOMAI — CATEGORIAS PAGE
+   ==================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+:root {
+  --bg-0:  #04060d;
+  --bg-1:  #080c16;
+  --bg-2:  #0c1120;
+  --bg-3:  #111828;
+  --accent:        #2d8eff;
+  --accent-bright: #00cfff;
+  --accent-glow:   rgba(45, 142, 255, 0.35);
+  --text-1: #e8eeff;
+  --text-2: #6b7c9e;
+  --border: rgba(45, 142, 255, 0.10);
+  --border-hover: rgba(45, 142, 255, 0.35);
+  --r: 18px;
+  --r-sm: 10px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-0);
+  color: var(--text-1);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Radial ambient light */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse, rgba(45, 142, 255, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── HEADER ── */
+header {
+  position: absolute;
+  top: 28px; left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+header img {
+  width: 32px;
+  filter: drop-shadow(0 0 8px rgba(45, 142, 255, 0.85));
+  animation: spin 16s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+header h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: .3px;
+}
+
+/* ── TITLE ── */
+.page-title {
+  text-align: center;
+  margin-bottom: 52px;
+  position: relative; z-index: 1;
+  animation: fadeDown .65s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-title h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  line-height: 1.25;
+  color: var(--text-1);
+}
+
+.page-title h2 span {
+  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-title p {
+  font-size: .88rem;
+  color: var(--text-2);
+  margin-top: 8px;
+}
+
+/* ── CATEGORY CARDS GRID ── */
+.categories-grid {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+  animation: fadeUp .75s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SINGLE CARD ── */
+.cat-card {
+  position: relative;
+  width: 200px;
+  background: rgba(12, 17, 32, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 36px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.22,1,.36,1),
+              border-color .3s ease,
+              box-shadow .3s ease;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+/* Glow layer */
+.cat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 30%, rgba(45, 142, 255, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+/* Top accent line */
+.cat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity .3s, left .3s, right .3s;
+}
+
+.cat-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  border-color: var(--border-hover);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--border-hover),
+    0 0 40px rgba(45, 142, 255, 0.15);
+}
+
+.cat-card:hover::before { opacity: 1; }
+.cat-card:hover::after { opacity: 1; left: 5%; right: 5%; }
+
+/* Icon wrapper */
+.cat-icon {
+  width: 80px; height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(45, 142, 255, 0.08);
+  border: 1px solid rgba(45, 142, 255, 0.15);
+  border-radius: 18px;
+  transition: background .3s, border-color .3s, transform .3s;
+}
+
+.cat-card:hover .cat-icon {
+  background: rgba(45, 142, 255, 0.15);
+  border-color: rgba(45, 142, 255, 0.35);
+  transform: rotate(-4deg) scale(1.08);
+}
+
+.cat-icon img {
+  width: 46px;
+  filter: invert(1) brightness(.8) sepia(1) hue-rotate(180deg) saturate(6);
+  transition: filter .3s;
+}
+
+.cat-card:hover .cat-icon img {
+  filter: invert(1) brightness(1.2) sepia(1) hue-rotate(180deg) saturate(8) drop-shadow(0 0 6px rgba(45, 142, 255, 0.8));
+}
+
+/* Label */
+.cat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--text-1);
+  transition: color .2s;
+}
+
+.cat-card:hover .cat-label {
+  color: var(--accent-bright);
+}
+
+/* Ticket count pill */
+.cat-count {
+  font-size: .75rem;
+  color: var(--text-2);
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  transition: background .2s, border-color .2s, color .2s;
+}
+
+.cat-card:hover .cat-count {
+  background: rgba(45, 142, 255, 0.10);
+  border-color: var(--border-hover);
+  color: var(--accent-bright);
+}
+
+/* Arrow indicator */
+.cat-arrow {
+  font-size: .85rem;
+  color: var(--text-2);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .25s, transform .25s;
+  position: absolute;
+  bottom: 16px; right: 18px;
+}
+
+.cat-card:hover .cat-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── FOOTER ── */
+footer {
+  position: absolute;
+  bottom: 22px;
+  font-size: .8rem;
+  color: var(--text-2);
+  text-align: center;
+  z-index: 1;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+footer a:hover {
+  color: var(--accent-bright);
+  text-decoration: underline;
+}

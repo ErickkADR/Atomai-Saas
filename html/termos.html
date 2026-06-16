@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Termos de Uso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-0: #04060d;
+      --bg-1: #080c16;
+      --bg-2: #0c1120;
+      --bg-3: #111828;
+      --accent:        #2d8eff;
+      --accent-bright: #00cfff;
+      --accent-dim:    rgba(45,142,255,.09);
+      --text-1: #e8eeff;
+      --text-2: #6b7c9e;
+      --text-3: #384560;
+      --border: rgba(45,142,255,.09);
+      --border-hover: rgba(45,142,255,.25);
+      --r: 12px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--text-1);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-bright); text-decoration: underline; }
+
+    /* ── Top bar ── */
+    .doc-topbar {
+      position: sticky;
+      top: 0; z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(4,6,13,.90);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .doc-topbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .doc-topbar .brand img {
+      width: 28px;
+      filter: drop-shadow(0 0 7px rgba(45,142,255,.8));
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .doc-topbar .brand span {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .82rem;
+      color: var(--text-2);
+      padding: 6px 14px;
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      transition: all .2s;
+    }
+    .back-btn:hover { color: var(--text-1); background: var(--accent-dim); text-decoration: none; }
+
+    /* ── Layout ── */
+    .doc-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* ── Sidebar TOC ── */
+    .doc-toc {
+      position: sticky;
+      top: 72px;
+      height: fit-content;
+      padding-right: 36px;
+      border-right: 1px solid var(--border);
+    }
+
+    .toc-label {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc-list a {
+      display: block;
+      padding: 6px 10px;
+      font-size: .84rem;
+      color: var(--text-2);
+      border-radius: 6px;
+      transition: all .15s;
+      text-decoration: none;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent-bright);
+      background: var(--accent-dim);
+      text-decoration: none;
+    }
+
+    /* ── Document body ── */
+    .doc-body {
+      padding-left: 48px;
+      max-width: 720px;
+    }
+
+    /* Header */
+    .doc-header {
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-bright);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+
+    .doc-header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: .2px;
+      margin-bottom: 10px;
+    }
+
+    .doc-header .meta {
+      font-size: .83rem;
+      color: var(--text-2);
+    }
+
+    .doc-header .meta span { color: var(--text-1); }
+
+    /* Sections */
+    .doc-section {
+      margin-bottom: 44px;
+      scroll-margin-top: 90px;
+    }
+
+    .doc-section h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doc-section h2 .num {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-hover);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .doc-section p {
+      color: var(--text-2);
+      margin-bottom: 12px;
+      font-size: .93rem;
+    }
+
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    .doc-section ul, .doc-section ol {
+      padding-left: 20px;
+      color: var(--text-2);
+      font-size: .93rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .doc-section ul li::marker { color: var(--accent); }
+    .doc-section ol li::marker { color: var(--accent); font-weight: 600; }
+
+    .highlight-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border-hover);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: .88rem;
+      color: var(--text-2);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .82rem;
+      color: var(--text-3);
+    }
+
+    @media (max-width: 760px) {
+      .doc-layout { grid-template-columns: 1fr; }
+      .doc-toc { display: none; }
+      .doc-body { padding-left: 0; }
+      .doc-topbar { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="doc-topbar">
+    <a class="brand" href="/html/atomai-chat.html">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="AtomAI">
+      <span>AtomAI</span>
+    </a>
+    <a class="back-btn" href="javascript:history.back()">← Voltar</a>
+  </header>
+
+  <div class="doc-layout">
+
+    <!-- TOC -->
+    <aside class="doc-toc">
+      <p class="toc-label">Neste documento</p>
+      <ul class="toc-list">
+        <li><a href="#s1">1. Aceitação dos Termos</a></li>
+        <li><a href="#s2">2. Descrição do Serviço</a></li>
+        <li><a href="#s3">3. Cadastro e Conta</a></li>
+        <li><a href="#s4">4. Uso Permitido</a></li>
+        <li><a href="#s5">5. Conteúdo do Usuário</a></li>
+        <li><a href="#s6">6. Planos e Pagamento</a></li>
+        <li><a href="#s7">7. Propriedade Intelectual</a></li>
+        <li><a href="#s8">8. Limitação de Responsabilidade</a></li>
+        <li><a href="#s9">9. Rescisão</a></li>
+        <li><a href="#s10">10. Alterações nos Termos</a></li>
+        <li><a href="#s11">11. Contato</a></li>
+      </ul>
+    </aside>
+
+    <!-- Body -->
+    <main class="doc-body">
+      <div class="doc-header">
+        <span class="doc-badge">Documento Legal</span>
+        <h1>Termos de Uso</h1>
+        <p class="meta">
+          Última atualização: <span>15 de junho de 2026</span> ·
+          Versão: <span>2.1</span>
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        Leia este documento com atenção antes de utilizar os serviços da AtomAI. Ao acessar ou usar nossa plataforma, você concorda com estes Termos de Uso na íntegra.
+      </div>
+
+      <!-- 1 -->
+      <section class="doc-section" id="s1">
+        <h2><span class="num">01</span> Aceitação dos Termos</h2>
+        <p>Estes Termos de Uso ("Termos") regem o acesso e a utilização da plataforma AtomAI, incluindo todos os serviços, funcionalidades, conteúdos e produtos disponibilizados pela <strong>AtomAI Tecnologia Ltda.</strong> ("AtomAI", "nós" ou "nosso").</p>
+        <p>Ao criar uma conta, acessar ou utilizar nossos serviços, você ("Usuário") concorda em ficar vinculado a estes Termos e à nossa Política de Privacidade. Caso não concorde com qualquer parte destes Termos, não utilize nossos serviços.</p>
+      </section>
+
+      <!-- 2 -->
+      <section class="doc-section" id="s2">
+        <h2><span class="num">02</span> Descrição do Serviço</h2>
+        <p>A AtomAI oferece uma plataforma de atendimento inteligente baseada em inteligência artificial, permitindo que empresas de diferentes nichos configurem e treinem agentes virtuais para responder dúvidas específicas de seus clientes.</p>
+        <p>Nossos serviços incluem, mas não se limitam a:</p>
+        <ul>
+          <li>Agentes de IA personalizados por categoria (Hardware, Software, Periféricos, entre outros)</li>
+          <li>Painel administrativo com dashboard, métricas e gestão de tickets</li>
+          <li>Sistema de planos com diferentes níveis de acesso e funcionalidades</li>
+          <li>Interface de chat integrada para atendimento ao cliente final</li>
+        </ul>
+      </section>
+
+      <!-- 3 -->
+      <section class="doc-section" id="s3">
+        <h2><span class="num">03</span> Cadastro e Conta</h2>
+        <p>Para utilizar os serviços da AtomAI, é necessário criar uma conta fornecendo informações verdadeiras, precisas e atualizadas. Você é responsável por:</p>
+        <ul>
+          <li>Manter a confidencialidade das suas credenciais de acesso</li>
+          <li>Todas as atividades realizadas sob sua conta</li>
+          <li>Notificar imediatamente a AtomAI em caso de acesso não autorizado</li>
+        </ul>
+        <p>A AtomAI reserva-se o direito de recusar, suspender ou encerrar contas a seu critério, especialmente em caso de violação destes Termos.</p>
+      </section>
+
+      <!-- 4 -->
+      <section class="doc-section" id="s4">
+        <h2><span class="num">04</span> Uso Permitido</h2>
+        <p>Ao utilizar a plataforma AtomAI, você concorda em não:</p>
+        <ul>
+          <li>Usar o serviço para fins ilegais, fraudulentos ou prejudiciais a terceiros</li>
+          <li>Tentar acessar sistemas, contas ou dados sem autorização</li>
+          <li>Reproduzir, copiar, vender ou explorar qualquer parte do serviço sem permissão expressa</li>
+          <li>Enviar conteúdo malicioso, spam ou qualquer forma de comunicação não solicitada</li>
+          <li>Interferir no funcionamento normal da plataforma ou dos seus servidores</li>
+          <li>Coletar dados de outros usuários sem consentimento</li>
+        </ul>
+        <div class="highlight-box">
+          A violação das regras de uso pode resultar na suspensão imediata da conta sem direito a reembolso.
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="doc-section" id="s5">
+        <h2><span class="num">05</span> Conteúdo do Usuário</h2>
+        <p>Ao enviar informações, mensagens ou qualquer conteúdo para a plataforma AtomAI, você declara e garante que:</p>
+        <ul>
+          <li>Possui todos os direitos necessários sobre o conteúdo enviado</li>
+          <li>O conteúdo não viola direitos de terceiros, leis aplicáveis ou estes Termos</li>
+          <li>Autoriza a AtomAI a processar o conteúdo para fins de prestação do serviço</li>
+        </ul>
+        <p>A AtomAI não reivindica propriedade sobre o conteúdo enviado por você, mas pode utilizar dados agregados e anonimizados para melhoria dos modelos e do serviço.</p>
+      </section>
+
+      <!-- 6 -->
+      <section class="doc-section" id="s6">
+        <h2><span class="num">06</span> Planos e Pagamento</h2>
+        <p>A AtomAI oferece planos gratuitos e pagos. Para planos pagos:</p>
+        <ul>
+          <li>As cobranças são realizadas mensalmente na data de contratação</li>
+          <li>Os valores estão sujeitos a alteração mediante aviso prévio de 30 dias</li>
+          <li>Cancelamentos devem ser realizados até 24h antes do próximo ciclo de cobrança</li>
+          <li>Não há reembolso por períodos parcialmente utilizados, salvo disposição legal contrária</li>
+          <li>A falta de pagamento poderá resultar na suspensão ou downgrade do plano</li>
+        </ul>
+      </section>
+
+      <!-- 7 -->
+      <section class="doc-section" id="s7">
+        <h2><span class="num">07</span> Propriedade Intelectual</h2>
+        <p>Todos os direitos sobre a plataforma AtomAI, incluindo código-fonte, design, logotipos, marca, modelos de IA e documentação, são de propriedade exclusiva da AtomAI Tecnologia Ltda. e protegidos pelas leis de propriedade intelectual vigentes.</p>
+        <p>Nenhuma disposição destes Termos transfere ao usuário qualquer direito de propriedade intelectual sobre os serviços ou conteúdos da AtomAI.</p>
+      </section>
+
+      <!-- 8 -->
+      <section class="doc-section" id="s8">
+        <h2><span class="num">08</span> Limitação de Responsabilidade</h2>
+        <p>Na máxima extensão permitida por lei, a AtomAI não será responsável por:</p>
+        <ul>
+          <li>Danos indiretos, incidentais, especiais ou consequenciais</li>
+          <li>Perda de dados, lucros ou oportunidades de negócio</li>
+          <li>Interrupções temporárias do serviço por manutenção ou força maior</li>
+          <li>Decisões tomadas com base nas respostas geradas pela IA</li>
+        </ul>
+        <div class="highlight-box">
+          As respostas geradas pelos agentes de IA são de caráter informativo e não substituem a consulta a profissionais especializados nas respectivas áreas.
+        </div>
+      </section>
+
+      <!-- 9 -->
+      <section class="doc-section" id="s9">
+        <h2><span class="num">09</span> Rescisão</h2>
+        <p>Qualquer das partes pode encerrar o uso dos serviços a qualquer momento. A AtomAI pode rescindir ou suspender o acesso imediatamente, sem aviso prévio, em caso de violação destes Termos.</p>
+        <p>Após o encerramento, todas as disposições que, por sua natureza, devam sobreviver à rescisão continuarão em vigor, incluindo as relativas à propriedade intelectual e limitação de responsabilidade.</p>
+      </section>
+
+      <!-- 10 -->
+      <section class="doc-section" id="s10">
+        <h2><span class="num">10</span> Alterações nos Termos</h2>
+        <p>A AtomAI reserva-se o direito de modificar estes Termos a qualquer momento. As alterações entram em vigor imediatamente após a publicação na plataforma. O uso contínuo dos serviços após a publicação das alterações constitui aceitação dos novos Termos.</p>
+        <p>Notificações sobre alterações relevantes serão enviadas ao email cadastrado com pelo menos 15 dias de antecedência.</p>
+      </section>
+
+      <!-- 11 -->
+      <section class="doc-section" id="s11">
+        <h2><span class="num">11</span> Contato</h2>
+        <p>Para dúvidas, solicitações ou reclamações relacionadas a estes Termos, entre em contato:</p>
+        <ul>
+          <li>Email: <a href="mailto:legal@atomai.com">legal@atomai.com</a></li>
+          <li>Suporte: <a href="mailto:contato@atomai.com">contato@atomai.com</a></li>
+        </ul>
+        <p>Este documento é regido pelas leis da República Federativa do Brasil, sendo o foro da comarca de São Paulo — SP eleito para dirimir quaisquer controvérsias.</p>
+      </section>
+
+      <div class="doc-footer">
+        <span>© 2026 AtomAI Tecnologia Ltda. Todos os direitos reservados.</span>
+        <a href="/html/privacidade.html">Política de Privacidade →</a>
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>

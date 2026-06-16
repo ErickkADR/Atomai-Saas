@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Configurações</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="logo-area">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="Logo" class="logo">
+      <a href="/html/atomai-chat.html"><h2>AtomAI</h2></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/html/dashboard.html">📊 Dashboard</a></li>
+        <li><a href="/html/agentes.html">🤖 Agentes</a></li>
+        <li><a href="/html/tickets.html">🎫 Tickets</a></li>
+        <li class="active"><a href="/html/conf.html">⚙️ Configurações</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content fade-in">
+    <h1>Configurações</h1>
+    <p class="subtitle">Gerencie seu perfil e preferências</p>
+
+    <div class="config-card">
+      <div class="profile-circle" id="profile-circle">AD</div>
+
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" placeholder="Seu nome">
+
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" id="sobrenome" placeholder="Seu sobrenome">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="seu@email.com">
+
+      <label for="empresa">Empresa</label>
+      <input type="text" id="empresa" placeholder="Nome da empresa">
+
+      <button style="margin-top:20px" id="save-btn" onclick="salvarAlteracoes()">Salvar Alterações</button>
+    </div>
+  </main>
+
+<script src="/js/auth.js"></script>
+<script>
+const STORAGE_KEY = 'atomai_profile';
+
+/* ── Carrega dados salvos ao abrir a página ── */
+(function carregarPerfil() {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (saved.nome)     document.getElementById('nome').value     = saved.nome;
+  if (saved.sobrenome)document.getElementById('sobrenome').value= saved.sobrenome;
+  if (saved.email)    document.getElementById('email').value    = saved.email;
+  if (saved.empresa)  document.getElementById('empresa').value  = saved.empresa;
+  atualizarAvatar(saved.nome, saved.sobrenome);
+})();
+
+/* ── Atualiza o círculo de avatar com as iniciais ── */
+function atualizarAvatar(nome, sobrenome) {
+  const i1 = (nome      || 'A').charAt(0).toUpperCase();
+  const i2 = (sobrenome || 'D').charAt(0).toUpperCase();
+  document.getElementById('profile-circle').textContent = i1 + i2;
+}
+
+/* Atualiza ao digitar */
+document.getElementById('nome').addEventListener('input', () =>
+  atualizarAvatar(document.getElementById('nome').value, document.getElementById('sobrenome').value));
+document.getElementById('sobrenome').addEventListener('input', () =>
+  atualizarAvatar(document.getElementById('nome').value, document.getElementById('sobrenome').value));
+
+/* ── Salva no localStorage ── */
+function salvarAlteracoes() {
+  const dados = {
+    nome:      document.getElementById('nome').value.trim(),
+    sobrenome: document.getElementById('sobrenome').value.trim(),
+    email:     document.getElementById('email').value.trim(),
+    empresa:   document.getElementById('empresa').value.trim(),
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
+
+  const btn = document.getElementById('save-btn');
+  btn.textContent = '✓ Salvo!';
+  btn.style.background = '#00e87a';
+  setTimeout(() => {
+    btn.textContent = 'Salvar Alterações';
+    btn.style.background = '';
+  }, 2200);
+}
+</script>
+
+</body>
+</html>

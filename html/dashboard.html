@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Chart.js -->
+  <script src="/js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    /* Dashboard-specific layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 22px;
+      margin-top: 6px;
+    }
+
+    .chart-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px 26px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+
+    .chart-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .chart-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .chart-card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-1);
+      letter-spacing: .3px;
+      margin-bottom: 4px;
+    }
+
+    .chart-card .chart-sub {
+      font-size: .78rem;
+      color: var(--text-2);
+      margin-bottom: 20px;
+    }
+
+    .chart-wrap {
+      position: relative;
+      height: 240px;
+    }
+
+    .chart-card.wide .chart-wrap {
+      height: 220px;
+    }
+
+    /* Glow stripe on chart cards */
+    .chart-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-bright), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .chart-card:hover::before { opacity: 1; }
+
+    /* Animated stat counters */
+    .card .big[data-target] { min-width: 60px; display: block; }
+
+    /* Period selector tabs */
+    .period-tabs {
+      display: flex;
+      gap: 4px;
+      position: absolute;
+      top: 22px; right: 22px;
+    }
+
+    .period-tab {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      padding: 4px 10px;
+      border-radius: var(--r-xs);
+      font-size: .75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .period-tab:hover, .period-tab.active {
+      background: var(--accent-dim);
+      border-color: var(--border-hover);
+      color: var(--accent-bright);
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Legend */
+    .chart-legend {
+      display: flex;
+      gap: 18px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .78rem;
+      color: var(--text-2);
+    }
+
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="Logo" class="logo">
+      <a href="/html/atomai-chat.html"><h2>AtomAI</h2></a>
+    </div>
+    <nav>
+      <ul>
+        <li class="active"><a href="/html/dashboard.html">📊 Dashboard</a></li>
+        <li><a href="/html/agentes.html">🤖 Agentes</a></li>
+        <li><a href="/html/tickets.html">🎫 Tickets</a></li>
+        <li><a href="/html/conf.html">⚙️ Configurações</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Visão geral dos atendimentos em tempo real</p>
+
+    <!-- STAT CARDS -->
+    <div class="cards">
+      <div class="card fade-in">
+        <h3>Total de Tickets</h3>
+        <p class="big" data-target="194">0</p>
+        <span class="positive">▲ +12% desde ontem</span>
+      </div>
+      <div class="card fade-in" style="animation-delay:.08s">
+        <h3>Agentes Ativos</h3>
+        <p class="big" data-target="12">0</p>
+        <span class="positive">+2 novos esta semana</span>
+      </div>
+      <div class="card fade-in" style="animation-delay:.16s">
+        <h3>Tempo Médio</h3>
+        <p class="big" id="tempo-medio">10m</p>
+        <span class="neutral">▼ -9% desde ontem</span>
+      </div>
+      <div class="card fade-in" style="animation-delay:.24s">
+        <h3>Resolvidos Hoje</h3>
+        <p class="big" data-target="45">0</p>
+        <span class="positive">▲ +18% desde ontem</span>
+      </div>
+    </div>
+
+    <!-- CHARTS GRID -->
+    <div class="dashboard-grid">
+
+      <!-- Line chart — Tickets por Dia (wide) -->
+      <div class="chart-card wide fade-in" style="animation-delay:.3s">
+        <h3>Volume de Tickets</h3>
+        <p class="chart-sub">Últimos 7 dias</p>
+        <div class="period-tabs">
+          <button class="period-tab active" data-period="7d">7D</button>
+          <button class="period-tab" data-period="30d">30D</button>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="ticketsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Doughnut — Categorias -->
+      <div class="chart-card fade-in" style="animation-delay:.38s">
+        <h3>Distribuição por Categoria</h3>
+        <p class="chart-sub">Total acumulado</p>
+        <div class="chart-wrap">
+          <canvas id="categoryChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#2d8eff"></div>Hardware</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#00cfff"></div>Software</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a259ff"></div>Periférico</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ffaa00"></div>Gerais</div>
+        </div>
+      </div>
+
+      <!-- Bar — Performance dos Agentes -->
+      <div class="chart-card fade-in" style="animation-delay:.46s">
+        <h3>Performance dos Agentes</h3>
+        <p class="chart-sub">Tickets resolvidos por agente</p>
+        <div class="chart-wrap">
+          <canvas id="agentsChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+<script>
+/* ──────────────────────────────────────────────
+   ANIMATED COUNTERS
+   ────────────────────────────────────────────── */
+document.querySelectorAll('.big[data-target]').forEach(el => {
+  const target = parseInt(el.getAttribute('data-target'));
+  let current = 0;
+  const duration = 900;
+  const step = target / (duration / 16);
+
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(current);
+  }, 16);
+});
+
+/* ──────────────────────────────────────────────
+   CHART.JS GLOBAL DEFAULTS (dark theme)
+   ────────────────────────────────────────────── */
+Chart.defaults.color = '#6b7c9e';
+Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif";
+Chart.defaults.font.size = 12;
+
+const gridColor  = 'rgba(45, 142, 255, 0.07)';
+const tickColor  = '#3d4d6a';
+
+/* ──────────────────────────────────────────────
+   DATA SETS
+   ────────────────────────────────────────────── */
+const DATA_7D = {
+  labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+  values: [42, 58, 47, 73, 85, 61, 94]
+};
+
+const DATA_30D = {
+  labels: ['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10',
+           'S11','S12','S13','S14','S15','S16','S17','S18','S19','S20',
+           'S21','S22','S23','S24','S25','S26','S27','S28','S29','S30'],
+  values: [38,45,52,48,63,55,71,67,82,74,
+           58,66,79,85,91,88,76,83,97,104,
+           98,87,92,110,119,103,115,122,108,130]
+};
+
+/* ──────────────────────────────────────────────
+   1. TICKETS LINE CHART
+   ────────────────────────────────────────────── */
+const ticketsCtx = document.getElementById('ticketsChart').getContext('2d');
+
+const gradientBlue = ticketsCtx.createLinearGradient(0, 0, 0, 220);
+gradientBlue.addColorStop(0, 'rgba(45, 142, 255, 0.30)');
+gradientBlue.addColorStop(1, 'rgba(45, 142, 255, 0.00)');
+
+let ticketsChart = new Chart(ticketsCtx, {
+  type: 'line',
+  data: {
+    labels: DATA_7D.labels,
+    datasets: [{
+      label: 'Tickets',
+      data: DATA_7D.values,
+      borderColor: '#2d8eff',
+      backgroundColor: gradientBlue,
+      borderWidth: 2.5,
+      pointRadius: 4,
+      pointBackgroundColor: '#2d8eff',
+      pointBorderColor: '#0c1120',
+      pointBorderWidth: 2,
+      pointHoverRadius: 6,
+      tension: 0.42,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#111828',
+        borderColor: 'rgba(45, 142, 255, 0.25)',
+        borderWidth: 1,
+        titleColor: '#e8eeff',
+        bodyColor: '#6b7c9e',
+        padding: 12,
+        callbacks: {
+          label: ctx => ` ${ctx.parsed.y} tickets`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: gridColor, drawBorder: false },
+        ticks: { color: tickColor }
+      },
+      y: {
+        beginAtZero: true,
+        grid: { color: gridColor, drawBorder: false },
+        ticks: { color: tickColor, stepSize: 20 }
+      }
+    }
+  }
+});
+
+/* Period switcher */
+document.querySelectorAll('.period-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.period-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const d = btn.dataset.period === '30d' ? DATA_30D : DATA_7D;
+    ticketsChart.data.labels = d.labels;
+    ticketsChart.data.datasets[0].data = d.values;
+    ticketsChart.update('active');
+  });
+});
+
+/* ──────────────────────────────────────────────
+   2. CATEGORY DOUGHNUT CHART
+   ────────────────────────────────────────────── */
+const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+
+new Chart(categoryCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Hardware', 'Software', 'Periférico', 'Gerais'],
+    datasets: [{
+      data: [45, 30, 15, 10],
+      backgroundColor: [
+        'rgba(45, 142, 255, 0.85)',
+        'rgba(0, 207, 255, 0.85)',
+        'rgba(162, 89, 255, 0.85)',
+        'rgba(255, 170, 0, 0.85)'
+      ],
+      borderColor: '#0c1120',
+      borderWidth: 3,
+      hoverBorderColor: '#0c1120',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#111828',
+        borderColor: 'rgba(45, 142, 255, 0.25)',
+        borderWidth: 1,
+        titleColor: '#e8eeff',
+        bodyColor: '#6b7c9e',
+        padding: 12,
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.parsed}%`
+        }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────────────
+   3. AGENTS BAR CHART
+   ────────────────────────────────────────────── */
+const agentsCtx = document.getElementById('agentsChart').getContext('2d');
+
+const gradientGreen = agentsCtx.createLinearGradient(0, 0, 0, 200);
+gradientGreen.addColorStop(0, 'rgba(0, 232, 122, 0.80)');
+gradientGreen.addColorStop(1, 'rgba(0, 232, 122, 0.25)');
+
+const gradientBlue2 = agentsCtx.createLinearGradient(0, 0, 0, 200);
+gradientBlue2.addColorStop(0, 'rgba(45, 142, 255, 0.80)');
+gradientBlue2.addColorStop(1, 'rgba(45, 142, 255, 0.25)');
+
+const gradientPurple = agentsCtx.createLinearGradient(0, 0, 0, 200);
+gradientPurple.addColorStop(0, 'rgba(162, 89, 255, 0.80)');
+gradientPurple.addColorStop(1, 'rgba(162, 89, 255, 0.25)');
+
+new Chart(agentsCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Bot 1 — Hardware', 'Bot 2 — Software', 'Bot 3 — Gerais'],
+    datasets: [{
+      label: 'Tickets Resolvidos',
+      data: [82, 76, 45],
+      backgroundColor: [gradientBlue2, gradientGreen, gradientPurple],
+      borderColor: ['#2d8eff', '#00e87a', '#a259ff'],
+      borderWidth: 1.5,
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#111828',
+        borderColor: 'rgba(45, 142, 255, 0.25)',
+        borderWidth: 1,
+        titleColor: '#e8eeff',
+        bodyColor: '#6b7c9e',
+        padding: 12,
+        callbacks: {
+          label: ctx => ` ${ctx.parsed.y} tickets`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { color: tickColor }
+      },
+      y: {
+        beginAtZero: true,
+        grid: { color: gridColor, drawBorder: false },
+        ticks: { color: tickColor, stepSize: 20 }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

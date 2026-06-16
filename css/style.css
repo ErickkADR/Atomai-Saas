@@ -1,0 +1,606 @@
+/* ====================================================
+   ATOMAI — DESIGN SYSTEM
+   Fontes: Rajdhani (display) · DM Sans (body)
+   ==================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* === TOKENS === */
+:root {
+  --bg-0:  #04060d;
+  --bg-1:  #080c16;
+  --bg-2:  #0c1120;
+  --bg-3:  #111828;
+  --bg-4:  #161f33;
+
+  --accent:        #2d8eff;
+  --accent-light:  #5aabff;
+  --accent-bright: #00cfff;
+  --accent-dim:    rgba(45, 142, 255, 0.10);
+  --accent-mid:    rgba(45, 142, 255, 0.20);
+  --accent-glow:   rgba(45, 142, 255, 0.35);
+
+  --text-1: #e8eeff;
+  --text-2: #6b7c9e;
+  --text-3: #384560;
+
+  --green:  #00e87a;
+  --orange: #ffaa00;
+  --red:    #ff4d6d;
+
+  --border:       rgba(45, 142, 255, 0.08);
+  --border-soft:  rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(45, 142, 255, 0.28);
+
+  --sidebar-w: 236px;
+  --r:    14px;
+  --r-sm:  9px;
+  --r-xs:  6px;
+
+  --shadow-sm:   0 4px 20px rgba(0,0,0,.30);
+  --shadow-md:   0 8px 40px rgba(0,0,0,.45);
+  --shadow-glow: 0 0 40px rgba(45,142,255,.12);
+}
+
+/* === RESET === */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-1);
+  color: var(--text-1);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-0);
+  border-right: 1px solid var(--border);
+  padding: 24px 14px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  top: 0; left: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(45,142,255,.07) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* Logo row */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  margin-bottom: 30px;
+  position: relative; z-index: 1;
+}
+
+.logo-area .logo {
+  width: 34px;
+  filter: drop-shadow(0 0 9px rgba(45,142,255,.9));
+  animation: spin 18s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.logo-area h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: var(--text-1);
+}
+
+/* Nav links */
+.sidebar nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar nav li a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: .88rem;
+  font-weight: 500;
+  transition: all .18s ease;
+  position: relative;
+}
+
+.sidebar nav li a:hover {
+  color: var(--text-1);
+  background: var(--border-soft);
+}
+
+.sidebar nav li.active a {
+  color: var(--accent-bright);
+  background: var(--accent-dim);
+}
+
+.sidebar nav li.active a::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 55%;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* =====================================================
+   CONTENT AREA
+   ===================================================== */
+.content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding: 40px 44px;
+  animation: fadeUp .45s ease both;
+  min-height: 100vh;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.content > h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.subtitle {
+  color: var(--text-2);
+  font-size: .88rem;
+  margin-top: 4px;
+  margin-bottom: 32px;
+}
+
+/* =====================================================
+   STAT CARDS
+   ===================================================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: var(--bg-2);
+  padding: 22px 24px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.card:hover::after { opacity: 1; }
+
+.card h3 {
+  font-size: .73rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card .big {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-1);
+  margin: 10px 0 6px;
+}
+
+.positive { color: var(--green);  font-size: .82rem; }
+.neutral  { color: var(--orange); font-size: .82rem; }
+.negative { color: var(--red);    font-size: .82rem; }
+
+/* =====================================================
+   TABLES
+   ===================================================== */
+.table-wrapper {
+  background: var(--bg-2);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  transition: opacity .35s ease;
+}
+
+table.oculta { opacity: 0; pointer-events: none; }
+
+th {
+  background: var(--bg-3);
+  padding: 13px 18px;
+  text-align: left;
+  font-size: .73rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: .9px;
+}
+
+td {
+  padding: 13px 18px;
+  font-size: .88rem;
+  color: var(--text-1);
+  border-top: 1px solid var(--border);
+  transition: background .15s;
+}
+
+tr:hover td { background: rgba(45,142,255,.03); }
+
+.link {
+  color: var(--accent);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .3px;
+}
+
+/* Status badges */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.status::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+
+.status.online {
+  background: rgba(0,232,122,.10);
+  color: var(--green);
+}
+.status.online::before {
+  background: var(--green);
+  box-shadow: 0 0 5px var(--green);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+.status.away {
+  background: rgba(255,170,0,.10);
+  color: var(--orange);
+}
+.status.away::before { background: var(--orange); }
+
+.status.offline {
+  background: rgba(255,77,109,.10);
+  color: var(--red);
+}
+.status.offline::before { background: var(--red); }
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .3; }
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: var(--r-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+button:hover {
+  background: #1a78ff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(45,142,255,.40);
+}
+
+.btn-ocultar {
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  color: var(--text-2);
+  margin-top: 16px;
+}
+.btn-ocultar:hover {
+  background: var(--accent-dim);
+  color: var(--text-1);
+  transform: none;
+  box-shadow: none;
+}
+
+/* =====================================================
+   CONFIG CARD
+   ===================================================== */
+.config-card {
+  background: var(--bg-2);
+  padding: 32px 36px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.config-card label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  margin-top: 14px;
+}
+
+.config-card input {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-1);
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.config-card input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45,142,255,.10);
+}
+
+.profile-circle {
+  width: 70px; height: 70px;
+  background: var(--accent-dim);
+  border: 2px solid rgba(45,142,255,.30);
+  border-radius: 50%;
+  color: var(--accent);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  box-shadow: 0 0 24px var(--accent-glow);
+}
+
+/* =====================================================
+   LOGIN PAGE
+   ===================================================== */
+.login-scene {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.login-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(10, 14, 28, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-hover);
+  border-radius: 20px;
+  padding: 48px 52px;
+  width: 420px;
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  animation: cardReveal .7s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(28px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.login-logo-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.login-logo-area img {
+  width: 50px;
+  filter: drop-shadow(0 0 12px rgba(45,142,255,.9));
+  animation: spin 12s linear infinite;
+}
+
+.login-logo-area .brand-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-1);
+}
+
+.login-card h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.login-card .welcome-sub {
+  text-align: center;
+  font-size: .85rem;
+  color: var(--text-2);
+  margin-bottom: 30px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.field-group label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  background: var(--bg-3);
+  border: 1px solid rgba(45,142,255,.15);
+  border-radius: var(--r-sm);
+  color: var(--text-1);
+  padding: 12px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .95rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45,142,255,.12);
+}
+
+.input-wrapper input::placeholder { color: var(--text-3); }
+
+.input-wrapper.has-toggle input { padding-right: 46px; }
+
+.toggle-pass-btn {
+  position: absolute;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-2);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1rem;
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-pass-btn:hover {
+  color: var(--text-1);
+  transform: translateY(-50%);
+  box-shadow: none;
+  background: none;
+}
+
+.error-banner {
+  background: rgba(255,77,109,.10);
+  border: 1px solid rgba(255,77,109,.20);
+  border-radius: var(--r-sm);
+  color: var(--red);
+  font-size: .85rem;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: none;
+}
+.error-banner.visible { display: block; }
+
+.login-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  font-size: .95rem;
+  font-weight: 700;
+  background: var(--accent);
+  border-radius: var(--r-sm);
+  letter-spacing: .3px;
+}
+.login-btn:hover { background: #1a78ff; }
+
+.login-hint {
+  margin-top: 24px;
+  padding: 12px 14px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: .78rem;
+  color: var(--text-2);
+  line-height: 1.8;
+}
+.login-hint strong { color: var(--accent-light); }
+
+/* =====================================================
+   UTILITIES
+   ===================================================== */
+.fade-in { animation: fadeUp .45s ease both; }
+body.fade-out { opacity: 0; transition: opacity .35s ease; }

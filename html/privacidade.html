@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Política de Privacidade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-0: #04060d;
+      --bg-1: #080c16;
+      --bg-2: #0c1120;
+      --bg-3: #111828;
+      --accent:        #2d8eff;
+      --accent-bright: #00cfff;
+      --accent-dim:    rgba(45,142,255,.09);
+      --text-1: #e8eeff;
+      --text-2: #6b7c9e;
+      --text-3: #384560;
+      --green:  #00e87a;
+      --border: rgba(45,142,255,.09);
+      --border-hover: rgba(45,142,255,.25);
+      --r: 12px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg-0);
+      color: var(--text-1);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-bright); text-decoration: underline; }
+
+    /* ── Top bar ── */
+    .doc-topbar {
+      position: sticky;
+      top: 0; z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(4,6,13,.90);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .doc-topbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .doc-topbar .brand img {
+      width: 28px;
+      filter: drop-shadow(0 0 7px rgba(45,142,255,.8));
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .doc-topbar .brand span {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .82rem;
+      color: var(--text-2);
+      padding: 6px 14px;
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      transition: all .2s;
+    }
+    .back-btn:hover { color: var(--text-1); background: var(--accent-dim); text-decoration: none; }
+
+    /* ── Layout ── */
+    .doc-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* ── TOC ── */
+    .doc-toc {
+      position: sticky;
+      top: 72px;
+      height: fit-content;
+      padding-right: 36px;
+      border-right: 1px solid var(--border);
+    }
+
+    .toc-label {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc-list a {
+      display: block;
+      padding: 6px 10px;
+      font-size: .84rem;
+      color: var(--text-2);
+      border-radius: 6px;
+      transition: all .15s;
+      text-decoration: none;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent-bright);
+      background: var(--accent-dim);
+      text-decoration: none;
+    }
+
+    /* ── Doc body ── */
+    .doc-body {
+      padding-left: 48px;
+      max-width: 720px;
+    }
+
+    .doc-header {
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+      background: rgba(0,232,122,.08);
+      border: 1px solid rgba(0,232,122,.2);
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+
+    .doc-header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: .2px;
+      margin-bottom: 10px;
+    }
+
+    .doc-header .meta {
+      font-size: .83rem;
+      color: var(--text-2);
+    }
+
+    .doc-header .meta span { color: var(--text-1); }
+
+    .doc-section {
+      margin-bottom: 44px;
+      scroll-margin-top: 90px;
+    }
+
+    .doc-section h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doc-section h2 .num {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-hover);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .doc-section p {
+      color: var(--text-2);
+      margin-bottom: 12px;
+      font-size: .93rem;
+    }
+
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    .doc-section ul, .doc-section ol {
+      padding-left: 20px;
+      color: var(--text-2);
+      font-size: .93rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .doc-section ul li::marker { color: var(--accent); }
+    .doc-section ol li::marker { color: var(--accent); font-weight: 600; }
+
+    .highlight-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border-hover);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: .88rem;
+      color: var(--text-2);
+    }
+
+    /* Data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin: 16px 0;
+      font-size: .86rem;
+    }
+
+    .data-table th {
+      background: var(--bg-3);
+      padding: 11px 16px;
+      text-align: left;
+      font-size: .73rem;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .data-table td {
+      padding: 11px 16px;
+      color: var(--text-2);
+      border-top: 1px solid var(--border);
+    }
+
+    .data-table td:first-child { color: var(--text-1); font-weight: 500; }
+
+    .doc-footer {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: .82rem;
+      color: var(--text-3);
+    }
+
+    @media (max-width: 760px) {
+      .doc-layout { grid-template-columns: 1fr; }
+      .doc-toc { display: none; }
+      .doc-body { padding-left: 0; }
+      .doc-topbar { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="doc-topbar">
+    <a class="brand" href="/html/atomai-chat.html">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="AtomAI">
+      <span>AtomAI</span>
+    </a>
+    <a class="back-btn" href="javascript:history.back()">← Voltar</a>
+  </header>
+
+  <div class="doc-layout">
+
+    <!-- TOC -->
+    <aside class="doc-toc">
+      <p class="toc-label">Neste documento</p>
+      <ul class="toc-list">
+        <li><a href="#s1">1. Quem somos</a></li>
+        <li><a href="#s2">2. Dados que coletamos</a></li>
+        <li><a href="#s3">3. Como usamos os dados</a></li>
+        <li><a href="#s4">4. Compartilhamento</a></li>
+        <li><a href="#s5">5. Cookies e rastreamento</a></li>
+        <li><a href="#s6">6. Retenção de dados</a></li>
+        <li><a href="#s7">7. Segurança</a></li>
+        <li><a href="#s8">8. Seus direitos (LGPD)</a></li>
+        <li><a href="#s9">9. Transferência internacional</a></li>
+        <li><a href="#s10">10. Menores de idade</a></li>
+        <li><a href="#s11">11. Alterações</a></li>
+        <li><a href="#s12">12. Contato e DPO</a></li>
+      </ul>
+    </aside>
+
+    <!-- Body -->
+    <main class="doc-body">
+      <div class="doc-header">
+        <span class="doc-badge">LGPD Compliant</span>
+        <h1>Política de Privacidade</h1>
+        <p class="meta">
+          Última atualização: <span>15 de junho de 2026</span> ·
+          Versão: <span>2.1</span>
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        Sua privacidade é fundamental para nós. Esta Política explica como coletamos, usamos, armazenamos e protegemos seus dados pessoais em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
+      </div>
+
+      <!-- 1 -->
+      <section class="doc-section" id="s1">
+        <h2><span class="num">01</span> Quem somos</h2>
+        <p>A <strong>AtomAI Tecnologia Ltda.</strong> é a controladora dos dados pessoais tratados em nossa plataforma. Somos responsáveis por determinar as finalidades e os meios de tratamento dos seus dados.</p>
+        <p>CNPJ: 00.000.000/0001-00 · Sede: São Paulo — SP, Brasil</p>
+      </section>
+
+      <!-- 2 -->
+      <section class="doc-section" id="s2">
+        <h2><span class="num">02</span> Dados que coletamos</h2>
+        <p>Coletamos diferentes categorias de dados dependendo do seu tipo de uso:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Dado</th>
+              <th>Finalidade</th>
+              <th>Base Legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nome e sobrenome</td>
+              <td>Identificação e personalização</td>
+              <td>Contrato</td>
+            </tr>
+            <tr>
+              <td>Endereço de email</td>
+              <td>Autenticação e comunicação</td>
+              <td>Contrato</td>
+            </tr>
+            <tr>
+              <td>Mensagens do chat</td>
+              <td>Prestação do serviço de IA</td>
+              <td>Contrato / Legítimo interesse</td>
+            </tr>
+            <tr>
+              <td>Dados de pagamento</td>
+              <td>Processamento de assinaturas</td>
+              <td>Contrato</td>
+            </tr>
+            <tr>
+              <td>Logs de acesso (IP, dispositivo)</td>
+              <td>Segurança e prevenção a fraudes</td>
+              <td>Legítimo interesse</td>
+            </tr>
+            <tr>
+              <td>Dados de uso da plataforma</td>
+              <td>Melhoria do serviço e analytics</td>
+              <td>Legítimo interesse / Consentimento</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3 -->
+      <section class="doc-section" id="s3">
+        <h2><span class="num">03</span> Como usamos os dados</h2>
+        <p>Utilizamos seus dados pessoais para as seguintes finalidades:</p>
+        <ul>
+          <li>Criar e gerenciar sua conta na plataforma</li>
+          <li>Processar pagamentos e gerenciar assinaturas</li>
+          <li>Operar, manter e melhorar os serviços de IA</li>
+          <li>Enviar comunicações sobre o serviço (atualizações, alertas de segurança)</li>
+          <li>Detectar, prevenir e investigar fraudes ou abusos</li>
+          <li>Cumprir obrigações legais e regulatórias</li>
+          <li>Fornecer suporte técnico e ao cliente</li>
+        </ul>
+        <p>Não utilizamos seus dados para publicidade de terceiros nem os vendemos a anunciantes.</p>
+      </section>
+
+      <!-- 4 -->
+      <section class="doc-section" id="s4">
+        <h2><span class="num">04</span> Compartilhamento de dados</h2>
+        <p>Seus dados poderão ser compartilhados apenas nas seguintes situações:</p>
+        <ul>
+          <li><strong>Prestadores de serviço:</strong> empresas que nos auxiliam na operação (ex.: processadores de pagamento, provedores de nuvem), vinculadas por contratos de confidencialidade e proteção de dados</li>
+          <li><strong>Exigência legal:</strong> quando obrigados por lei, decisão judicial ou autoridade competente</li>
+          <li><strong>Proteção de direitos:</strong> para investigar fraudes ou proteger os direitos da AtomAI e de terceiros</li>
+          <li><strong>Consentimento:</strong> em qualquer outra situação, somente com sua autorização expressa</li>
+        </ul>
+        <div class="highlight-box">
+          Nunca vendemos seus dados pessoais a terceiros. Jamais.
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="doc-section" id="s5">
+        <h2><span class="num">05</span> Cookies e rastreamento</h2>
+        <p>Utilizamos cookies e tecnologias similares para:</p>
+        <ul>
+          <li><strong>Essenciais:</strong> manter sua sessão ativa e garantir o funcionamento básico da plataforma (não podem ser desativados)</li>
+          <li><strong>Funcionais:</strong> lembrar suas preferências e configurações</li>
+          <li><strong>Analytics:</strong> entender como os usuários interagem com a plataforma (podem ser recusados)</li>
+        </ul>
+        <p>Você pode gerenciar suas preferências de cookies nas configurações do seu navegador a qualquer momento.</p>
+      </section>
+
+      <!-- 6 -->
+      <section class="doc-section" id="s6">
+        <h2><span class="num">06</span> Retenção de dados</h2>
+        <p>Mantemos seus dados pelo tempo necessário para cumprir as finalidades descritas nesta Política, respeitando os seguintes critérios:</p>
+        <ul>
+          <li>Dados de conta: enquanto a conta estiver ativa, mais 90 dias após o encerramento</li>
+          <li>Dados de conversas: 12 meses a partir da data da conversa</li>
+          <li>Dados financeiros: 5 anos, conforme exigência fiscal e legal</li>
+          <li>Logs de segurança: 6 meses</li>
+        </ul>
+      </section>
+
+      <!-- 7 -->
+      <section class="doc-section" id="s7">
+        <h2><span class="num">07</span> Segurança</h2>
+        <p>Adotamos medidas técnicas e organizacionais para proteger seus dados, incluindo:</p>
+        <ul>
+          <li>Criptografia TLS/SSL em todas as transmissões de dados</li>
+          <li>Criptografia de dados sensíveis em repouso (AES-256)</li>
+          <li>Controle de acesso baseado em função (RBAC)</li>
+          <li>Monitoramento contínuo de segurança e detecção de intrusões</li>
+          <li>Backups regulares com retenção segura</li>
+          <li>Treinamentos periódicos de segurança para nossa equipe</li>
+        </ul>
+        <p>Em caso de incidente de segurança que afete seus dados, notificaremos você e a ANPD dentro dos prazos legais estabelecidos pela LGPD.</p>
+      </section>
+
+      <!-- 8 -->
+      <section class="doc-section" id="s8">
+        <h2><span class="num">08</span> Seus direitos (LGPD)</h2>
+        <p>Nos termos da LGPD, você tem os seguintes direitos em relação aos seus dados pessoais:</p>
+        <ol>
+          <li><strong>Confirmação e acesso</strong> — saber se tratamos seus dados e obter cópia deles</li>
+          <li><strong>Correção</strong> — solicitar a correção de dados incompletos, inexatos ou desatualizados</li>
+          <li><strong>Anonimização, bloqueio ou eliminação</strong> — para dados desnecessários ou excessivos</li>
+          <li><strong>Portabilidade</strong> — receber seus dados em formato estruturado para migrar a outro serviço</li>
+          <li><strong>Eliminação</strong> — solicitar a exclusão de dados tratados com base no seu consentimento</li>
+          <li><strong>Revogação do consentimento</strong> — retirar seu consentimento a qualquer momento</li>
+          <li><strong>Oposição</strong> — se opor a tratamentos que não atendam às hipóteses legais</li>
+          <li><strong>Informação</strong> — ser informado sobre as entidades com as quais compartilhamos seus dados</li>
+        </ol>
+        <p>Para exercer seus direitos, entre em contato pelo email <a href="mailto:privacidade@atomai.com">privacidade@atomai.com</a>. Responderemos em até 15 dias úteis.</p>
+      </section>
+
+      <!-- 9 -->
+      <section class="doc-section" id="s9">
+        <h2><span class="num">09</span> Transferência internacional</h2>
+        <p>Alguns de nossos prestadores de serviço operam fora do Brasil. Quando transferimos dados internacionalmente, garantimos que as transferências ocorram apenas para países ou organizações com nível de proteção adequado, ou mediante cláusulas contratuais padrão aprovadas pela ANPD.</p>
+      </section>
+
+      <!-- 10 -->
+      <section class="doc-section" id="s10">
+        <h2><span class="num">10</span> Menores de idade</h2>
+        <p>Nossos serviços não são direcionados a menores de 18 anos. Não coletamos intencionalmente dados pessoais de crianças ou adolescentes. Se tomarmos conhecimento de que coletamos dados de um menor sem o consentimento dos pais ou responsáveis legais, excluiremos essas informações imediatamente.</p>
+      </section>
+
+      <!-- 11 -->
+      <section class="doc-section" id="s11">
+        <h2><span class="num">11</span> Alterações nesta Política</h2>
+        <p>Podemos atualizar esta Política periodicamente para refletir mudanças nos nossos serviços ou na legislação. A versão mais recente estará sempre disponível nesta página, com a data de última atualização indicada no topo.</p>
+        <p>Para alterações relevantes, notificaremos você por email com pelo menos 15 dias de antecedência.</p>
+      </section>
+
+      <!-- 12 -->
+      <section class="doc-section" id="s12">
+        <h2><span class="num">12</span> Contato e Encarregado (DPO)</h2>
+        <p>Nosso Encarregado de Proteção de Dados (DPO) está disponível para esclarecer dúvidas e receber solicitações:</p>
+        <ul>
+          <li>Email DPO: <a href="mailto:privacidade@atomai.com">privacidade@atomai.com</a></li>
+          <li>Suporte geral: <a href="mailto:contato@atomai.com">contato@atomai.com</a></li>
+        </ul>
+        <p>Você também pode contatar a Autoridade Nacional de Proteção de Dados (ANPD) pelo site <a href="https://www.gov.br/anpd" target="_blank" rel="noopener">www.gov.br/anpd</a>.</p>
+      </section>
+
+      <div class="doc-footer">
+        <span>© 2026 AtomAI Tecnologia Ltda. Todos os direitos reservados.</span>
+        <a href="/html/termos.html">Termos de Uso →</a>
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>

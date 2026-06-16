@@ -1,0 +1,154 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      display: flex;
+      height: 100vh;
+      color: #111;
+    }
+
+    .left {
+      flex: 1;
+      padding: 60px;
+      border-right: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 26px;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .summary {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .summary div {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .summary div:last-child {
+      border-bottom: none;
+      font-weight: 600;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+    }
+
+    input, select {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #0070f3;
+      box-shadow: 0 0 4px rgba(0,112,243,0.3);
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .checkbox input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+    }
+
+    button {
+      background: #001f33;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #003d66;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    footer a {
+      color: #0070f3;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .card-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .card-icons img {
+      height: 20px;
+      margin-left: 6px;
+    }
+
+    /* Animação de entrada */
+    .fadeIn {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }

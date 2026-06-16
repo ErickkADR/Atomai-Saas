@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png">
+  <title>AtomAI — Chat</title>
+  <link rel="stylesheet" href="/css/atomai-chat.css">
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-center"></div>
+  <div class="bg-glow bg-glow-br"></div>
+  <div class="bg-glow bg-glow-tl"></div>
+
+  <!-- HEADER -->
+  <header class="atomai-header">
+    <div class="atomai-logo-area">
+      <img src="/images/ChatGPT Image 5 de nov. de 2025, 22_56_21 (1).png" alt="Logo AtomAI" class="atomai-logo">
+      <a href="/html/atomai-chat.html"><h1>AtomAI</h1></a>
+    </div>
+
+    <div class="atomai-user-menu">
+      <div class="atomai-user-avatar" id="header-avatar">AD</div>
+      <div class="atomai-dropdown" id="user-dropdown">
+        <a href="/html/dashboard.html" id="link-admin"><button>⚙️ Painel Admin</button></a>
+        <a href="/html/planos.html"><button>💎 Upgrade de Plano</button></a>
+        <a href="/html/index.html" onclick="sessionStorage.clear()"><button>🚪 Sair</button></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="atomai-main">
+    <div class="atomai-chat-box">
+
+      <!-- Heading -->
+      <h1 class="main-title">
+        Como posso <span class="gradient-word">te ajudar?</span>
+      </h1>
+
+      <p class="main-subtitle">
+        <span class="subtitle-dot"></span>
+        Inteligência especializada, pronta para você
+      </p>
+
+      <!-- Suggestion cards -->
+      <div class="suggestions-grid">
+
+        <div class="sug-card" data-msg="Estou com dificuldades com peças do meu computador.">
+          <div class="sug-icon">
+            <!-- Monitor / Hardware -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div class="sug-content">
+            <span class="sug-title">Problema de Hardware</span>
+            <span class="sug-desc">Peças, componentes e montagem</span>
+          </div>
+          <span class="sug-arrow">→</span>
+        </div>
+
+        <div class="sug-card" data-msg="Preciso de ajuda com um software ou sistema operacional.">
+          <div class="sug-icon">
+            <!-- Code / Software -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div class="sug-content">
+            <span class="sug-title">Suporte de Software</span>
+            <span class="sug-desc">Sistemas, drivers e aplicativos</span>
+          </div>
+          <span class="sug-arrow">→</span>
+        </div>
+
+        <div class="sug-card" data-msg="Um periférico meu está com problema e precisa de suporte.">
+          <div class="sug-icon">
+            <!-- Mouse / Peripheral -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="2" width="12" height="20" rx="6"/>
+              <path d="M12 7v4"/>
+              <line x1="6" y1="11" x2="18" y2="11"/>
+            </svg>
+          </div>
+          <div class="sug-content">
+            <span class="sug-title">Periférico com falha</span>
+            <span class="sug-desc">Mouse, teclado, monitor e mais</span>
+          </div>
+          <span class="sug-arrow">→</span>
+        </div>
+
+        <div class="sug-card" data-msg="">
+          <div class="sug-icon">
+            <!-- Grid / Categories -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </div>
+          <div class="sug-content">
+            <span class="sug-title">Selecionar Categorias</span>
+            <span class="sug-desc">Ver todos os agentes disponíveis</span>
+          </div>
+          <span class="sug-arrow">→</span>
+        </div>
+
+      </div>
+
+      <!-- Input -->
+      <div class="input-border-wrap">
+        <div class="atomai-input-inner">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Descreva sua dúvida..."
+            autocomplete="off"
+          >
+          <button class="send-btn" id="send-btn" type="button" title="Enviar">
+            <svg viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <p class="input-hint">Pressione Enter ou clique na seta para enviar</p>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="atomai-footer">
+    <p>
+      Ao enviar para o AtomAI, você aceita nossos
+      <a href="/html/termos.html">Termos de Uso</a> e declara ter lido nossa
+      <a href="/html/privacidade.html">Política de Privacidade</a>.
+    </p>
+  </footer>
+
+<script>
+/* Esconde "Painel Admin" para usuário comum */
+const _u = JSON.parse(sessionStorage.getItem('atomai_user') || '{}');
+if (_u.role !== 'admin') {
+  const adminLink = document.getElementById('link-admin');
+  if (adminLink) adminLink.style.display = 'none';
+}
+
+/* Avatar com iniciais do perfil salvo */
+(function () {
+  const saved = JSON.parse(localStorage.getItem('atomai_profile') || '{}');
+  const nome = (saved.nome || 'Admin').charAt(0).toUpperCase();
+  const sobr = (saved.sobrenome || 'D').charAt(0).toUpperCase();
+  document.getElementById('header-avatar').textContent = nome + sobr;
+})();
+
+/* Rotating placeholder */
+const placeholders = [
+  'Descreva sua dúvida...',
+  'Ex: meu computador não liga...',
+  'Ex: driver de áudio com problema...',
+  'Ex: teclado não está respondendo...',
+  'Ex: sistema lento após atualização...',
+];
+let pIdx = 0;
+const chatInput = document.getElementById('chat-input');
+setInterval(() => {
+  if (document.activeElement !== chatInput) {
+    pIdx = (pIdx + 1) % placeholders.length;
+    chatInput.placeholder = placeholders[pIdx];
+  }
+}, 3200);
+
+/* Suggestion cards */
+document.querySelectorAll('.sug-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const msg = card.dataset.msg;
+
+    /* "Selecionar Categorias" → vai para categorias.html */
+    if (!msg) {
+      window.location.href = '/html/categorias.html';
+      return;
+    }
+
+    /* Outros cards → chatbot com mensagem pré-preenchida */
+    sessionStorage.setItem('atomai_msg', msg);
+    window.location.href = '/html/chatbot1.html';
+  });
+});
+
+/* Botão enviar / Enter */
+function goToChat() {
+  const val = chatInput.value.trim();
+  if (!val) return;
+  sessionStorage.setItem('atomai_msg', val);
+  window.location.href = '/html/chatbot1.html';
+}
+
+document.getElementById('send-btn').addEventListener('click', goToChat);
+chatInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') goToChat();
+});
+</script>
+
+</body>
+</html>
