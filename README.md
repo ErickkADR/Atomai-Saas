@@ -10,10 +10,18 @@
 |---|---|
 | ![Tela de login](docs/01-login.png) | ![Dashboard administrativo com gráficos em tempo real](docs/02-dashboard.png) |
 
-<details>
-<summary>Ver mais um print (chat landing)</summary>
+| Chat Landing | Gerenciamento de Agentes |
+|---|---|
+| ![Landing do chat com sugestões rápidas por categoria](docs/03-chat.png) | ![Lista de agentes com status e métricas](docs/04-agentes.png) |
 
-![Landing do chat com sugestões rápidas por categoria](docs/03-chat.png)
+| Tickets | Planos |
+|---|---|
+| ![Visão geral dos tickets de atendimento](docs/05-tickets.png) | ![Página de planos de assinatura](docs/06-planos.png) |
+
+<details>
+<summary>Ver mais um print (checkout)</summary>
+
+![Checkout com preview do cartão em tempo real](docs/07-pagamento.png)
 
 </details>
 
