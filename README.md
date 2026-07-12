@@ -6,7 +6,18 @@
 
 ## Demonstração
 
-| Tela | Preview |
+| Login | Dashboard |
+|---|---|
+| ![Tela de login](docs/01-login.png) | ![Dashboard administrativo com gráficos em tempo real](docs/02-dashboard.png) |
+
+<details>
+<summary>Ver mais um print (chat landing)</summary>
+
+![Landing do chat com sugestões rápidas por categoria](docs/03-chat.png)
+
+</details>
+
+| Tela | Descrição |
 |---|---|
 | Login | Autenticação com redirecionamento por função (admin / usuário) |
 | Dashboard | Métricas em tempo real com Chart.js (linha, rosca, barras) |
